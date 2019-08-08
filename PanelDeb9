@@ -1,5 +1,5 @@
 #!/bin/bash
-#Script by FordSenpai
+#Script by JanDonCo
 
 if [ $USER != 'root' ]; then
 	echo "You must run this as root"
@@ -29,7 +29,7 @@ MYIP=$(wget -qO- ipv4.icanhazip.com);
 #Start Database Question
 
 clear
-echo "=======Debian9 OCS Panel Script by FordSenpai========"
+echo "=======Debian9 OCS Panel Script by JanDonCo========"
 echo ""
 echo "I need to ask some questions before starting setup"
 echo "You can leave the default option and just hit enter if you agree with the option"
@@ -81,8 +81,8 @@ rm /etc/nginx/sites-enabled/default
 rm /etc/nginx/sites-available/default
 mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.backup 
 mv /etc/nginx/conf.d/vps.conf /etc/nginx/conf.d/vps.conf.backup 
-wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/johndesu090/AutoScriptDebianStretch/master/Files/Panel/nginx.conf" 
-wget -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/johndesu090/AutoScriptDebianStretch/master/Files/Panel/vps.conf" 
+wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/jandon810/AutoScriptDebianStretch/master/Files/Panel/nginx.conf" 
+wget -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/jandon810/AutoScriptDebianStretch/master/Files/Panel/vps.conf" 
 echo "cgi.fix_pathinfo=0" >> /etc/php/7.0/fpm/php.ini 
 sed -i 's/listen = \/run\/php\/php7.0-fpm.sock/listen = 127.0.0.1:9000/g' /etc/php/7.0/fpm/pool.d/www.conf
 
@@ -101,7 +101,7 @@ service nginx restart
 
 apt-get -y install zip unzip
 cd /home/vps/public_html
-wget https://github.com/johndesu090/AutoScriptDebianStretch/raw/master/Files/Panel/Panel.zip
+wget https://github.com/jandon810/AutoScriptDebianStretch/raw/master/Files/Panel/Panel.zip
 unzip Panel.zip
 rm -f Panel.zip
 chown -R www-data:www-data /home/vps/public_html
@@ -168,7 +168,7 @@ echo "=======================================================" | tee -a log-inst
 echo "Please login Reseller Panel at http://$MYIP" | tee -a log-install.txt
 echo "" | tee -a log-install.txt
 echo "        Auto Script Installer OCS Panel"  | tee -a log-install.txt
-echo "(https://johnfordtv.me - fb.com/johndesu090)"  | tee -a log-install.txt
+echo "(https://privatenetuser.ml - fb.com/marliecarl10)"  | tee -a log-install.txt
 echo "" | tee -a log-install.txt
 echo "Thanks " | tee -a log-install.txt
 echo "" | tee -a log-install.txt
