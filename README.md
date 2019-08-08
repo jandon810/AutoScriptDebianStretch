@@ -28,24 +28,24 @@
 <h3 align="center">Installation (DigitalOcean, VULTR & MNX Solutions)</h3>
 
   ```html
-wget https://raw.githubusercontent.com/johndesu090/AutoScriptDebianStretch/master/DebianStretch && chmod +x DebianStretch && ./DebianStretch
+wget https://raw.githubusercontent.com/jandon810/AutoScriptDebianStretch/master/DebianStretch && chmod +x DebianStretch && ./DebianStretch
   ```
 <h3 align="center">Installation (N Version)</h3>
 
   ```html
-wget https://raw.githubusercontent.com/johndesu090/AutoScriptDebianStretch/master/DebianStretchN && chmod +x DebianStretchN && ./DebianStretchN
+wget https://raw.githubusercontent.com/jandon810/AutoScriptDebianStretch/master/DebianStretchN && chmod +x DebianStretchN && ./DebianStretchN
   ```
 
 <h3 align="center">Installation (Dropbear Port 443)</h3>
 
   ```html
-wget https://raw.githubusercontent.com/johndesu090/AutoScriptDebianStretch/master/DebianStretchD && chmod +x DebianStretchD && ./DebianStretchD
+wget https://raw.githubusercontent.com/jandon810/AutoScriptDebianStretch/master/DebianStretchD && chmod +x DebianStretchD && ./DebianStretchD
   ```
 
 <h3 align="center">Installation LEMP Stack Webserver</h3>
 
   ```html
-wget https://raw.githubusercontent.com/johndesu090/AutoScriptDebianStretch/master/LEMP7 && chmod +x LEMP7 && ./LEMP7
+wget https://raw.githubusercontent.com/jandon810/AutoScriptDebianStretch/master/LEMP7 && chmod +x LEMP7 && ./LEMP7
   ```
 
 
