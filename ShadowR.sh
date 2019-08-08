@@ -4,18 +4,18 @@ export PATH
 #=================================================================#
 #   System Required:  CentOS 6,7, Debian, Ubuntu                  #
 #   Description: One click Install ShadowsocksR Server            #
-#   Author: JohnFordTV <exodia090@gmail.com>                      #
-#   Facebook:  https://www.facebook.com/johndesu090               #
-#   Thanks: Teddysun <i@teddysun.com>                             #
+#   Author: JanDonCo <marliecarl@gmail.com>                       #
+#   Facebook:  https://www.facebook.com/marliecarl10              #
+#   Thanks: JohnFordTV <exodia090@gmail.com>                      #
 #=================================================================#
 
 clear
 echo
 echo "#############################################################"
 echo "# One click Install ShadowsocksR Server                     #"
-echo "# Facebook:  https://www.facebook.com/johndesu090           #"
-echo "# Author: JohnFordTV <exodia090@gmail.com>                  #"
-echo "# Youtube: https://youtube.com/c/JohnFordTV                 #"
+echo "# Facebook:  https://www.facebook.com/marliecarl10          #"
+echo "# Author: JanDonCo <marliecarl@gmail.com>                   #"
+echo "# Youtube: https://youtube.com/c/marliecarl                 #"
 echo "#############################################################"
 echo
 
@@ -442,12 +442,12 @@ install(){
         echo -e "Your obfs             : \033[41;37m ${shadowsockobfs} \033[0m"
         echo -e "Your Encryption Method: \033[41;37m ${shadowsockscipher} \033[0m"
         echo
-        echo "Welcome to visit: https://facebook.com/johndesu090"
-		echo "Subscribe: https://youtube.com/c/JohnFordTV"
+        echo "Welcome to visit: https://facebook.com/marliecarl10"
+		echo "Subscribe: https://youtube.com/c/marliecarl"
         echo "Enjoy it!"
         echo
     else
-        echo "ShadowsocksR install failed, please Contact to JohnFordTV https://facebook.com/johndesu090"
+        echo "ShadowsocksR install failed, please Contact to JanDonCo https://facebook.com/marliecarl10"
         install_cleanup
         exit 1
     fi
