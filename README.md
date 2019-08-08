@@ -1,7 +1,7 @@
 <h1 align="center"> VPN AutoScript Debian Stretch<img src="https://img.shields.io/badge/Version-3.9-blue.svg"></h1>
 
 <p align="center">VPN AutoScript is made by FordSenpai to minimize the time consumed and user involvement in setting up your VPS</p>
-<p align="center">[Donations] GCASH: 09206200840 PAYPAL: johnford090@gmail.com FACEBOOK: John Ford Mangiliman</p>
+<p align="center">[Donations] GCASH: 09777150475 PAYPAL: marliecarl@gmail.com FACEBOOK: Carl Marie Bayoneta</p>
 
 <h3 align="center">Supported Linux Distribution</h3>
 <p align="center">
@@ -55,16 +55,16 @@ Recommended OS: Debian 9 Stretch x64
 
 <h3 align="center">Screenshots</h3>
 <p align="center">
-<img src="https://github.com/johndesu090/AutoScriptDebianStretch/raw/master/Snapshots/1.png">
+<img src="https://github.com/jandon810/AutoScriptDebianStretch/raw/master/Snapshots/1.png">
    </p>
   <p align="center">
-  <img src="https://github.com/johndesu090/AutoScriptDebianStretch/raw/master/Snapshots/2.png">
+  <img src="https://github.com/jandon810/AutoScriptDebianStretch/raw/master/Snapshots/2.png">
    </p>
   <p align="center">
-  <img src="https://github.com/johndesu090/AutoScriptDebianStretch/raw/master/Snapshots/3.png">
+  <img src="https://github.com/jandon810/AutoScriptDebianStretch/raw/master/Snapshots/3.png">
   </p>
   <p align="center">
-  <img src="https://github.com/johndesu090/AutoScriptDebianStretch/raw/master/Snapshots/4.png">
+  <img src="https://github.com/jandon810/AutoScriptDebianStretch/raw/master/Snapshots/4.png">
    </p>
    
    <h3 align="center">ShadowsocksR (Optional)</h3>
@@ -120,5 +120,5 @@ Status: /etc/init.d/shadowsocks status
 }
 ```
 
-Facebook Support: https://www.facebook.com/johndesu090
+Facebook Support: https://www.facebook.com/marliecarl10
    </p>
