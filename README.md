@@ -70,32 +70,44 @@ Recommended OS: Debian 9 Stretch x64
    <h3 align="center">ShadowsocksR (Optional)</h3>
    <p align="left">
    Download (Android): https://github.com/shadowsocksr-backup/shadowsocksr-android/releases
-  
+   </p>
+   <p align="left">
    Download (Windows): https://github.com/shadowsocksr-backup/shadowsocksr-csharp/releases
-  
+   </p>
+   <p align="left">
    Configuration file path: /etc/shadowsocks.json 
-   
+   </p>
+   <p align="left">
    Log file path: /var/log/shadowsocks.log 
-   
+   </p>
+   <p align="left">   
    Installation directory: /usr/local/shadowsocks
-   
-   
+   </p>
+   <p align="left"> 
    Installation:
-   
+   </p>
+   <p align="left">   
 ```html
 wget --no-check-certificate https://raw.githubusercontent.com/johndesu090/AutoScriptDebianStretch/master/ShadowR.sh
 chmod +x ShadowR.sh
 ./ShadowR.sh 2>&1 | tee shadowsocksR.log
 ```
+   </p>
+   <p align="left">
    Commands:
+   </p>
+   <p align="left">
 ```html
 Start: /etc/init.d/shadowsocks start 
 Stop: /etc/init.d/shadowsocks stop 
 Restart: /etc/init.d/shadowsocks restart 
 Status: /etc/init.d/shadowsocks status
 ```
-
+   </p>
+   <p align="left">
    Multi Users; Config Setup:
+   </p>
+   <p align="left">
 ```html
 {
 "server":"0.0.0.0",
@@ -119,6 +131,7 @@ Status: /etc/init.d/shadowsocks status
 "workers": 1
 }
 ```
-
+   </p>
+   <p align="left">
 Facebook Support: https://www.facebook.com/marliecarl10
    </p>
