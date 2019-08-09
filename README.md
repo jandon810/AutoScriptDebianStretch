@@ -69,32 +69,32 @@ Recommended OS: Debian 9 Stretch x64
    
    <h3 align="center">ShadowsocksR (Optional)</h3>
    <p align="left">
-   Download (Android): https://github.com/shadowsocksr-backup/shadowsocksr-android/releases
+   <h3 align="left">Download (Android):</h3> https://github.com/shadowsocksr-backup/shadowsocksr-android/releases
    </p>
    <p align="left">
-   Download (Windows): https://github.com/shadowsocksr-backup/shadowsocksr-csharp/releases
+   <h3 align="left">Download (Windows):</h3> https://github.com/shadowsocksr-backup/shadowsocksr-csharp/releases
    </p>
    <p align="left">
-   Configuration file path: /etc/shadowsocks.json 
+   <h3 align="left">Configuration file path:</h3> /etc/shadowsocks.json 
    </p>
    <p align="left">
-   Log file path: /var/log/shadowsocks.log 
+   <h3 align="left">Log file path:</h3> /var/log/shadowsocks.log 
    </p>
    <p align="left">   
-   Installation directory: /usr/local/shadowsocks
+   <h3 align="left">Installation directory:</h3> /usr/local/shadowsocks
    </p>
    <p align="left"> 
-   Installation:
+   <h3 align="left">Installation:</h3>
    </p>
    <p align="left">   
 ```html
-wget --no-check-certificate https://raw.githubusercontent.com/johndesu090/AutoScriptDebianStretch/master/ShadowR.sh
+wget --no-check-certificate https://raw.githubusercontent.com/jandon810/AutoScriptDebianStretch/master/ShadowR.sh
 chmod +x ShadowR.sh
 ./ShadowR.sh 2>&1 | tee shadowsocksR.log
 ```
    </p>
    <p align="left">
-   Commands:
+   <h3 align="left">Commands:</h3>
    </p>
    <p align="left">
 ```html
@@ -105,7 +105,7 @@ Status: /etc/init.d/shadowsocks status
 ```
    </p>
    <p align="left">
-   Multi Users; Config Setup:
+   <h3 align="left">Multi Users; Config Setup:</h3>
    </p>
    <p align="left">
 ```html
@@ -133,5 +133,5 @@ Status: /etc/init.d/shadowsocks status
 ```
    </p>
    <p align="left">
-Facebook Support: https://www.facebook.com/marliecarl10
+<h3 align="center">Facebook Support: https://www.facebook.com/marliecarl10</h3>
    </p>
