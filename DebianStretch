@@ -1,5 +1,6 @@
 #!/bin/sh
-#Script by JanDonCo.
+#Script created by JnDCo
+# https://fb.me/marliecarl10
 
 wget -O - https://swupdate.openvpn.net/repos/repo-public.gpg|apt-key add -
 sleep 2
@@ -23,18 +24,18 @@ echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6
 # set time GMT +8
 ln -fs /usr/share/zoneinfo/Asia/Manila /etc/localtime
 
-# install webmin
+# install webmin 1.920
 cd
 wget "https://github.com/jandon810/AutoScriptDebianStretch/raw/master/Files/Plugins/webmin_1.920_all.deb"
 dpkg --install webmin_1.920_all.deb;
 apt-get -y -f install;
 sed -i 's/ssl=1/ssl=0/g' /etc/webmin/miniserv.conf
-rm /root/webmin_1.801_all.deb
+rm /root/webmin_1.920_all.deb
 service webmin restart
 
 # install screenfetch
 cd
-wget -O /usr/bin/screenfetch "https://raw.githubusercontent.com/jandon810/AutoScriptDebianStretch/master/Files/Plugins/screenfetch2"
+wget -O /usr/bin/screenfetch "https://raw.githubusercontent.com/jandon810/AutoScriptDebianStretch/master/Files/Plugins/screenfetch"
 chmod +x /usr/bin/screenfetch
 echo "clear" >> .profile
 echo "screenfetch" >> .profile
@@ -108,13 +109,13 @@ refresh_pattern ^ftp: 1440 20% 10080
 refresh_pattern ^gopher: 1440 0% 1440
 refresh_pattern -i (/cgi-bin/|\?) 0 0% 0
 refresh_pattern . 0 20% 4320
-visible_hostname FordSenpai
+visible_hostname JnDCo
 END
 sed -i $MYIP2 /etc/squid/squid.conf;
 
 # setting banner
 rm /etc/issue.net
-wget -O /etc/issue.net "https://raw.githubusercontent.com/jandon810/AutoScriptDeb8/master/Files/Others/issue.net"
+wget -O /etc/issue.net "https://raw.githubusercontent.com/jandon810/AutoScriptDebianStretch/master/Files/Plugins/issue.net"
 sed -i 's@#Banner@Banner@g' /etc/ssh/sshd_config
 sed -i 's@DROPBEAR_BANNER=""@DROPBEAR_BANNER="/etc/issue.net"@g' /etc/default/dropbear
 service ssh restart
@@ -126,16 +127,16 @@ mkdir /etc/openvpn/easy-rsa/keys
 
 # replace bits
 sed -i 's|export KEY_COUNTRY="US"|export KEY_COUNTRY="PH"|' /etc/openvpn/easy-rsa/vars
-sed -i 's|export KEY_PROVINCE="CA"|export KEY_PROVINCE="ILOILO"|' /etc/openvpn/easy-rsa/vars
+sed -i 's|export KEY_PROVINCE="CA"|export KEY_PROVINCE="Iloilo"|' /etc/openvpn/easy-rsa/vars
 sed -i 's|export KEY_CITY="SanFrancisco"|export KEY_CITY="iLLCity"|' /etc/openvpn/easy-rsa/vars
-sed -i 's|export KEY_ORG="Fort-Funston"|export KEY_ORG="jandon810"|' /etc/openvpn/easy-rsa/vars
+sed -i 's|export KEY_ORG="Fort-Funston"|export KEY_ORG="JnDCo"|' /etc/openvpn/easy-rsa/vars
 sed -i 's|export KEY_EMAIL="me@myhost.mydomain"|export KEY_EMAIL="marliecarl@gmail.com"|' /etc/openvpn/easy-rsa/vars
-sed -i 's|export KEY_OU="MyOrganizationalUnit"|export KEY_OU="jandon810"|' /etc/openvpn/easy-rsa/vars
-sed -i 's|export KEY_NAME="EasyRSA"|export KEY_NAME="CarlMarieBayoneta"|' /etc/openvpn/easy-rsa/vars
-sed -i 's|export KEY_OU=changeme|export KEY_OU=jandon810|' /etc/openvpn/easy-rsa/vars
-
+sed -i 's|export KEY_OU="MyOrganizationalUnit"|export KEY_OU="JnDCo"|' /etc/openvpn/easy-rsa/vars
+sed -i 's|export KEY_NAME="EasyRSA"|export KEY_NAME="JnDCo"|' /etc/openvpn/easy-rsa/vars
+sed -i 's|export KEY_OU=changeme|export KEY_OU=JnDCo|' /etc/openvpn/easy-rsa/vars
 #Create Diffie-Helman Pem
 openssl dhparam -out /etc/openvpn/dh1024.pem 1024
+
 # Create PKI
 cd /etc/openvpn/easy-rsa
 cp openssl-1.0.0.cnf openssl.cnf
@@ -157,10 +158,8 @@ cp /etc/openvpn/easy-rsa/keys/ca.crt /etc/openvpn/ca.crt
 chmod +x /etc/openvpn/ca.crt
 
 # Setting Server
-tar -xzvf /root/plugin.tgz -C /usr/lib/openvpn/
-chmod +x /usr/lib/openvpn/*
 cat > /etc/openvpn/server.conf <<-END
-port 1147
+port 110
 proto tcp
 dev tun
 ca ca.crt
@@ -173,8 +172,8 @@ plugin /usr/lib/openvpn/plugins/openvpn-plugin-auth-pam.so login
 server 192.168.10.0 255.255.255.0
 ifconfig-pool-persist ipp.txt
 push "redirect-gateway def1 bypass-dhcp"
-push "dhcp-option DNS 8.8.8.8"
-push "dhcp-option DNS 8.8.4.4"
+push "dhcp-option DNS 1.1.1.1"
+push "dhcp-option DNS 1.1.0.0"
 push "route-method exe"
 push "route-delay 2"
 socket-flags TCP_NODELAY
@@ -191,80 +190,84 @@ verb 3
 ncp-disable
 cipher none
 auth none
+
 END
 systemctl start openvpn@server
+
 #Create OpenVPN Config
 mkdir -p /home/vps/public_html
-cat > /home/vps/public_html/tupromo.ovpn <<-END
-# Created by jandon810
+cat > /home/vps/public_html/SUNTU-CTC.ovpn <<-END
+
+# Created by JnDCo
 # https://fb.me/marliecarl10
-auth-user-pass
 client
 dev tun
-proto tcp
-remote $MYIP 1147
-keepalive 10 120
+proto tcp-client
+remote $MYIP 110
+nobind
 persist-key
 persist-tun
-pull
-resolv-retry infinite
-nobind
-tun-mtu 1496
-comp-lzo
+tls-client
+remote-cert-tls server
 verb 3
-connect-retry 5 5
-connect-retry-max 3355
-mute-replay-warnings
-redirect-gateway def1 bypass-dhcp
-script-security 2
+auth-user-pass
 cipher none
 auth none
+auth-nocache
+auth-retry interact
+connect-retry 0 1
+nice -20
+reneg-sec 0
+redirect-gateway def1
+dhcp-option DNS 1.1.1.1
+dhcp-option DNS 1.0.0.1
 http-proxy $MYIP 3356
 http-proxy-option CUSTOM-HEADER ""
 http-proxy-option CUSTOM-HEADER "POST https://viber.com HTTP/1.0"
-END
-echo '<ca>' >> /home/vps/public_html/tupromo.ovpn
-cat /etc/openvpn/ca.crt >> /home/vps/public_html/tupromo.ovpn
-echo '</ca>' >> /home/vps/public_html/tupromo.ovpn
 
-cat > /home/vps/public_html/noload.ovpn <<-END
-# Created by jandon810
+END
+echo '<ca>' >> /home/vps/public_html/SUNTU-CTC.ovpn
+cat /etc/openvpn/ca.crt >> /home/vps/public_html/SUNTU-CTC.ovpn
+echo '</ca>' >> /home/vps/public_html/SUNTU-CTC.ovpn
+
+cat > /home/vps/public_html/SUN-NOLOAD.ovpn <<-END
+
+# Created by JnDCo
 # https://fb.me/marliecarl10
-auth-user-pass
 client
 dev tun
-proto tcp
-remote $MYIP 1147
-port 443
+proto tcp-client
+remote $MYIP 110
 persist-key
 persist-tun
-resolv-retry infinite
-comp-lzo
-remote-cert-tls server
-verb 3
-lport 110
-float
 bind
-mute 2
-connect-retry 1 1
-mute-replay-warnings
+float
+remote-cert-tls server
+verb 0
+auth-user-pass
 redirect-gateway def1
-script-security 2
 cipher none
 auth none
-END
-echo '<ca>' >> /home/vps/public_html/noload.ovpn
-cat /etc/openvpn/ca.crt >> /home/vps/public_html/noload.ovpn
-echo '</ca>' >> /home/vps/public_html/noload.ovpn
+auth-nocache
+auth-retry interact
+connect-retry 0 1
+nice -20
+reneg-sec 0
 
-cat > /home/vps/public_html/fixplan.ovpn <<-END
-# Created by jandon810
+END
+echo '<ca>' >> /home/vps/public_html/SUN-NOLOAD.ovpn
+cat /etc/openvpn/ca.crt >> /home/vps/public_html/SUN-NOLOAD.ovpn
+echo '</ca>' >> /home/vps/public_html/SUN-NOLOAD.ovpn
+
+cat > /home/vps/public_html/SUNFIXPLAN.ovpn <<-END
+
+# Created by JnDCo
 # https://fb.me/marliecarl10
 auth-user-pass
 client
 dev tun
 proto tcp
-remote $MYIP 1147
+remote $MYIP 110
 persist-key
 persist-tun
 resolv-retry infinite
@@ -281,61 +284,245 @@ script-security 2
 cipher none
 auth none
 nice -20
+dhcp-option DNS 1.1.1.1
+dhcp-option DNS 1.0.0.1
 http-proxy $MYIP 3356
 http-proxy-option CUSTOM-HEADER ""
 http-proxy-option CUSTOM-HEADER "POST https://viber.com HTTP/1.1"
 http-proxy-option CUSTOM-HEADER "Proxy-Connection: Keep-Alive"
-dhcp-option DNS 1.1.1.1
-dhcp-option DNS 1.0.0.1
-END
-echo '<ca>' >> /home/vps/public_html/fixplan.ovpn
-cat /etc/openvpn/ca.crt >> /home/vps/public_html/fixplan.ovpn
-echo '</ca>' >> /home/vps/public_html/fixplan.ovpn
 
-cat > /home/vps/public_html/gowatchplay.ovpn <<-END
-# Created by jandon810
+END
+echo '<ca>' >> /home/vps/public_html/SUNFIXPLAN.ovpn
+cat /etc/openvpn/ca.crt >> /home/vps/public_html/SUNFIXPLAN.ovpn
+echo '</ca>' >> /home/vps/public_html/SUNFIXPLAN.ovpn
+
+# Create New Openvpn Config
+
+cat > /home/vps/public_html/GOWATCHV2.ovpn <<-END
+
+# Created by JnDCo
 # https://fb.me/marliecarl10
 auth-user-pass
 client
 dev tun
 proto tcp
-remote $MYIP:1147@s.ytimg.com
+remote $MYIP 110
 persist-key
 persist-tun
 resolv-retry infinite
 comp-lzo
 remote-cert-tls server
+nobind
 verb 3
 mute 2
-pull
-nobind
-connect-retry 5 5
+connect-retry 0 1
 connect-retry-max 3355
 mute-replay-warnings
 redirect-gateway def1
 script-security 2
 cipher none
 auth none
-http-proxy $MYIP 3355
+nice -20
+dhcp-option DNS 1.1.1.1
+dhcp-option DNS 1.0.0.1
+http-proxy $MYIP 3356
+http-proxy-option CUSTOM-HEADER CONNECT HTTP/1.0
+http-proxy-option CUSTOM-HEADER Host s.ytimg.com
+http-proxy-option CUSTOM-HEADER X-Online-Host s.ytimg.com
+http-proxy-option CUSTOM-HEADER X-Forward-Host s.ytimg.com
+http-proxy-option CUSTOM-HEADER Connection Keep-Alive
+
+END
+echo '<ca>' >> /home/vps/public_html/GOWATCHV2.ovpn
+cat /etc/openvpn/ca.crt >> /home/vps/public_html/GOWATCHV2.ovpn
+echo '</ca>' >> /home/vps/public_html/GOWATCHV2.ovpn
+
+cat > /home/vps/public_html/GLOBEGOWATCH.ovpn <<-END
+
+# Created by JnDCo
+# https://fb.me/marliecarl10
+client
+dev tun
+proto tcp-client
+remote $MYIP 110
+persist-key
+persist-tun
+remote-cert-tls server
+verb 3
+auth-user-pass
+redirect-gateway def1
+cipher none
+auth none
+auth-nocache
+auth-retry interact
+connect-retry 0 1
+nice -20
+reneg-sec 0
+http-proxy $MYIP 8080
+http-proxy-option CUSTOM-HEADER CONNECT HTTP/1.0
+http-proxy-option CUSTOM-HEADER Host www.googleapis.com
+http-proxy-option CUSTOM-HEADER X-Online-Host www.googleapis.com
+http-proxy-option CUSTOM-HEADER X-Forward-Host www.googleapis.com
+http-proxy-option CUSTOM-HEADER Connection keep-alive
+http-proxy-option CUSTOM-HEADER Proxy-Connection keep-alive
+
+
+END
+echo '<ca>' >> /home/vps/public_html/GLOBEGOWATCH.ovpn
+cat /etc/openvpn/ca.crt >> /home/vps/public_html/GLOBEGOWATCH.ovpn
+echo '</ca>' >> /home/vps/public_html/GLOBEGOWATCH.ovpn
+
+cat > /home/vps/public_html/SMART-ATPROMO.ovpn <<-END
+
+# Created by JnDCo
+# https://fb.me/marliecarl10
+client
+dev tun
+proto tcp-client
+remote $MYIP 110
+nobind
+persist-key
+persist-tun
+tls-client
+remote-cert-tls server
+verb 3
+auth-user-pass
+cipher none
+auth none
+auth-nocache
+auth-retry interact
+connect-retry 0 1
+nice -20
+reneg-sec 0
+redirect-gateway def1
+dhcp-option DNS 1.1.1.1
+dhcp-option DNS 1.0.0.1
+http-proxy $MYIP 3356
+http-proxy-option CUSTOM-HEADER CONNECT HTTP/1.0
+http-proxy-option CUSTOM-HEADER Host static.viber.com
+http-proxy-option CUSTOM-HEADER X-Online-Host static.viber.com
+http-proxy-option CUSTOM-HEADER X-Forward-Host static.viber.com
+http-proxy-option CUSTOM-HEADER Connection Keep-Alive
+
+
+END
+echo '<ca>' >> /home/vps/public_html/SMART-ATPROMO.ovpn
+cat /etc/openvpn/ca.crt >> /home/vps/public_html/SMART-ATPROMO.ovpn
+echo '</ca>' >> /home/vps/public_html/SMART-ATPROMO.ovpn
+
+cat > /home/vps/public_html/DEFAULT-NOPROXY.ovpn <<-END
+
+# Created by JnDCo
+# https://fb.me/marliecarl10
+client
+dev tun
+proto tcp-client
+remote $MYIP 110
+nobind
+persist-key
+persist-tun
+tls-client
+remote-cert-tls server
+verb 3
+auth-user-pass
+cipher none
+auth none
+auth-nocache
+auth-retry interact
+connect-retry 0 1
+nice -20
+reneg-sec 0
+redirect-gateway def1
+dhcp-option DNS 1.1.1.1
+dhcp-option DNS 1.0.0.1
+
+
+
+END
+echo '<ca>' >> /home/vps/public_html/DEFAULT-NOPROXY.ovpn
+cat /etc/openvpn/ca.crt >> /home/vps/public_html/DEFAULT-NOPROXY.ovpn
+echo '</ca>' >> /home/vps/public_html/DEFAULT-NOPROXY.ovpn
+
+cat > /home/vps/public_html/DEFAULT-PROXY.ovpn <<-END
+
+# Created by JnDCo
+# https://fb.me/marliecarl10
+client
+dev tun
+proto tcp-client
+remote $MYIP 110
+nobind
+persist-key
+persist-tun
+tls-client
+remote-cert-tls server
+verb 3
+auth-user-pass
+cipher none
+auth none
+auth-nocache
+auth-retry interact
+connect-retry 0 1
+nice -20
+reneg-sec 0
+redirect-gateway def1
+dhcp-option DNS 1.1.1.1
+dhcp-option DNS 1.0.0.1
+http-proxy $MYIP 3356
+
+
+END
+echo '<ca>' >> /home/vps/public_html/DEFAULT-PROXY.ovpn
+cat /etc/openvpn/ca.crt >> /home/vps/public_html/DEFAULT-PROXY.ovpn
+echo '</ca>' >> /home/vps/public_html/DEFAULT-PROXY.ovpn
+
+cat > /home/vps/public_html/SUNFREEYT.ovpn <<-END
+
+# Created by JnDCo
+# https://fb.me/marliecarl10
+client
+dev tun
+proto tcp-client
+remote $MYIP 110
+nobind
+persist-key
+persist-tun
+tls-client
+remote-cert-tls server
+verb 3
+auth-user-pass
+cipher none
+auth none
+auth-nocache
+auth-retry interact
+connect-retry 0 1
+nice -20
+reneg-sec 0
+redirect-gateway def1
+dhcp-option DNS 1.1.1.1
+dhcp-option DNS 1.0.0.1
+http-proxy $MYIP 3356
 http-proxy-option CUSTOM-HEADER CONNECT HTTP/1.0
 http-proxy-option CUSTOM-HEADER Host i9.ytimg.com
 http-proxy-option CUSTOM-HEADER X-Online-Host i9.ytimg.com
 http-proxy-option CUSTOM-HEADER X-Forward-Host i9.ytimg.com
-http-proxy-option CUSTOM-HEADER Connection keep-alive
-http-proxy-option CUSTOM-HEADER Proxy-Connection keep-alive
-http-proxy-retry
+http-proxy-option CUSTOM-HEADER Connection Keep-Alive
+
+
 END
-echo '<ca>' >> /home/vps/public_html/gowatchplay.ovpn
-cat /etc/openvpn/ca.crt >> /home/vps/public_html/gowatchplay.ovpn
-echo '</ca>' >> /home/vps/public_html/gowatchplay.ovpn
+echo '<ca>' >> /home/vps/public_html/SUNFREEYT.ovpn
+cat /etc/openvpn/ca.crt >> /home/vps/public_html/SUNFREEYT.ovpn
+echo '</ca>' >> /home/vps/public_html/SUNFREEYT.ovpn
 
 cat > /home/vps/public_html/OpenVPN-SSL.ovpn <<-END
-# Created by jandon810
+
+# Created by JnDCo
+# https://fb.me/marliecarl10
 auth-user-pass
 client
 dev tun
 proto tcp
-remote 127.0.0.1 1147
+remote 127.0.0.1 110
 route $MYIP 255.255.255.255 net_gateway
 persist-key
 persist-tun
@@ -360,10 +547,12 @@ cat /etc/openvpn/ca.crt >> /home/vps/public_html/OpenVPN-SSL.ovpn
 echo '</ca>' >> /home/vps/public_html/OpenVPN-SSL.ovpn
 
 cat > /home/vps/public_html/stunnel.conf <<-END
+
 client = yes
 debug = 6
+
 [openvpn]
-accept = 127.0.0.1:1147
+accept = 127.0.0.1:110
 connect = $MYIP:587
 TIMEOUTclose = 0
 verify = 0
@@ -374,19 +563,23 @@ END
 sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
 openssl req -new -newkey rsa:2048 -days 3650 -nodes -x509 -sha256 -subj '/CN=127.0.0.1/O=localhost/C=PH' -keyout /etc/stunnel/stunnel.pem -out /etc/stunnel/stunnel.pem
 cat > /etc/stunnel/stunnel.conf <<-END
+
 sslVersion = all
 pid = /stunnel.pid
 socket = l:TCP_NODELAY=1
 socket = r:TCP_NODELAY=1
 client = no
+
 [openvpn]
 accept = 587
-connect = 127.0.0.1:1147
+connect = 127.0.0.1:110
 cert = /etc/stunnel/stunnel.pem
+
 [dropbear]
 accept = 444
 connect = 127.0.0.1:442
 cert = /etc/stunnel/stunnel.pem
+
 END
 
 #Setting UFW
@@ -426,6 +619,8 @@ COMMIT
 -A INPUT -p tcp --dport 587  -m state --state NEW -j ACCEPT
 -A INPUT -p tcp --dport 1147  -m state --state NEW -j ACCEPT
 -A INPUT -p udp --dport 1147  -m state --state NEW -j ACCEPT
+-A INPUT -p tcp --dport 110  -m state --state NEW -j ACCEPT
+-A INPUT -p udp --dport 110  -m state --state NEW -j ACCEPT
 -A INPUT -p tcp --dport 3355  -m state --state NEW -j ACCEPT
 -A INPUT -p udp --dport 3355  -m state --state NEW -j ACCEPT
 -A INPUT -p tcp --dport 8085  -m state --state NEW -j ACCEPT
@@ -459,6 +654,7 @@ echo "admin:itangsagli" | chpasswd
 # Create and Configure rc.local
 cat > /etc/rc.local <<-END
 #!/bin/sh -e
+
 exit 0
 END
 chmod +x /etc/rc.local
@@ -478,7 +674,7 @@ vnstat -u -i eth0
 
 # compress configs
 cd /home/vps/public_html
-zip configs.zip tupromo.ovpn OpenVPN-SSL.ovpn stunnel.conf fixplan.ovpn noload.ovpn gowatchplay.ovpn
+zip configs.zip SUNTU-CTC.ovpn SUN-NOLOAD.ovpn SUNFIXPLAN.ovpn GLOBEGOWATCH.ovpn GOWATCHV2.ovpn SMART-ATPROMO.ovpn DEFAULT-NOPROXY.ovpn DEFAULT-PROXY.ovpn SUNFREEYT.ovpn OpenVPN-SSL.ovpn stunnel.conf 
 
 # install libxml-parser
 apt-get install libxml-parser-perl -y -f
@@ -507,7 +703,7 @@ echo "Installation has been completed!!"
 echo " Please Reboot your VPS"
 echo "--------------------------- Configuration Setup Server -------------------------"
 echo "                       Debian Script HostingTermurah Based                      "
-echo "                                  -jandon810-                                   "
+echo "                                   -JanDonCo-                                   "
 echo "--------------------------------------------------------------------------------"
 echo ""  | tee -a log-install.txt
 echo "Server Information"  | tee -a log-install.txt
@@ -518,10 +714,10 @@ echo "   - Auto-Reboot : [OFF]"  | tee -a log-install.txt
 echo "   - IPv6        : [OFF]"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "Application & Port Information"  | tee -a log-install.txt
-echo "   - OpenVPN		: TCP 1147 "  | tee -a log-install.txt
+echo "   - OpenVPN		: TCP 110 "  | tee -a log-install.txt
 echo "   - OpenVPN-SSL	: 587 "  | tee -a log-install.txt
 echo "   - Dropbear		: 442"  | tee -a log-install.txt
-echo "   - Stunnel  	: 444"  | tee -a log-install.txt
+echo "   - Stunnel  	:     444"  | tee -a log-install.txt
 echo "   - Squid Proxy	: 3355, 8085 (limit to IP Server)"  | tee -a log-install.txt
 echo "   - Privoxy		: 3356, 8086 (limit to IP Server)"  | tee -a log-install.txt
 echo "   - Nginx		: 80"  | tee -a log-install.txt
@@ -537,6 +733,6 @@ echo "   - Installation Log        : cat /root/log-install.txt"  | tee -a log-in
 echo ""  | tee -a log-install.txt
 echo "   - Webmin                  : http://$MYIP:10000/"  | tee -a log-install.txt
 echo ""
-echo "------------------------------ Script by jandon810 -----------------------------"
+echo "------------------------------    Script by JanDonCo.    -----------------------------"
 echo "-----Please Reboot your VPS -----"
 sleep 5
