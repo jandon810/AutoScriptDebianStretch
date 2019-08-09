@@ -86,28 +86,28 @@ Recommended OS: Debian 9 Stretch x64
    <p align="left"> 
    <h3 align="left">Installation:</h3>
    </p>
-   <p align="left">   
+   
 ```html
 wget --no-check-certificate https://raw.githubusercontent.com/jandon810/AutoScriptDebianStretch/master/ShadowR.sh
 chmod +x ShadowR.sh
 ./ShadowR.sh 2>&1 | tee shadowsocksR.log
 ```
-   </p>
+
    <p align="left">
    <h3 align="left">Commands:</h3>
    </p>
-   <p align="left">
+
 ```html
 Start: /etc/init.d/shadowsocks start 
 Stop: /etc/init.d/shadowsocks stop 
 Restart: /etc/init.d/shadowsocks restart 
 Status: /etc/init.d/shadowsocks status
 ```
-   </p>
+
    <p align="left">
    <h3 align="left">Multi Users; Config Setup:</h3>
    </p>
-   <p align="left">
+
 ```html
 {
 "server":"0.0.0.0",
@@ -131,7 +131,7 @@ Status: /etc/init.d/shadowsocks status
 "workers": 1
 }
 ```
-   </p>
+
    <p align="left">
 <h3 align="center">Facebook Support: https://www.facebook.com/marliecarl10</h3>
    </p>
